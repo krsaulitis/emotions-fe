@@ -1,0 +1,11 @@
+* {
+    font-family: Mark-Medium;
+}
+
+.font-bold {
+    font-family: Mark-Bold;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

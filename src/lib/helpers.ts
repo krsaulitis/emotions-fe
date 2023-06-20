@@ -12,6 +12,19 @@ export function sigmoid(x: number) {
     return 1 / (1 + Math.exp(-x));
 }
 
+export function padOrClip(array: Array<number>, targetLen: number) {
+    if (array.length > targetLen) {
+        return array.slice(0, targetLen);
+    }
+
+    if (array.length < targetLen) {
+        let zeros = new Array(targetLen - array.length).fill(0);
+        return array.concat(zeros);
+    }
+
+    return array;
+}
+
 export const labelMap = {
     admiration: "👏",
     amusement: "😂",

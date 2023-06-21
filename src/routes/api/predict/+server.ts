@@ -8,12 +8,17 @@ import vocabENLV from '$lib/vocab_en_lv.txt'
 // import * as onnx from 'onnxruntime-common'
 import {buildInt64, labelMap, padOrClip, sigmoid} from '$lib/helpers'
 import * as fs from "fs";
+import path from "path";
 
 export const GET: RequestHandler = async ({request, url}) => {
     const text = url.searchParams.get('q') || '';
     const model = url.searchParams.get('m') || 'en';
 
-    const vocab = fs.readFileSync(`./.svelte-kit/output/server${vocabLV}`, 'utf8')
+    const file = path.join(process.cwd(), vocabLV);
+    const altFile = path.join(process.cwd(), '.svelte-kit/output/server', vocabLV)
+    console.log(file, altFile)
+    console.log(fs.existsSync(file), fs.existsSync(altFile))
+    const vocab = fs.readFileSync(altFile, 'utf8')
     console.log(onnx.InferenceSession)
     const session = await onnx.InferenceSession.create("https://huggingface.co/krsaulitis/emotion-bert-lv/resolve/main/model_lv.onnx")
     // const tokenizer = new BertTokenizer(`./src/lib/vocab_${model}.json`, false, 64)

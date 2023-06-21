@@ -9,6 +9,13 @@ export const GET: RequestHandler = async ({request, url}) => {
     const text = url.searchParams.get('q') || '';
     const model = url.searchParams.get('m') || 'en';
 
+    fs.readdir('./src/lib', (err, files): void => {
+        console.log(files)
+    });
+
+    fs.readdir('./', (err, files): void => {
+        console.log(files)
+    });
     const vocab = fs.readFileSync(`src/lib/vocab_${model}.txt`, 'utf8')
     const session = await onnx.InferenceSession.create(`./src/lib/model_${model}.onnx`)
     // const tokenizer = new BertTokenizer(`./src/lib/vocab_${model}.json`, false, 64)

@@ -36,9 +36,6 @@
 	"type": "module",
 	"dependencies": {
 		"@nlpjs/bert-tokenizer": "^4.27.0",
-		"bert-tokenizer": "^1.1.8",
-		"onnxjs": "^0.1.8",
-		"onnxruntime-node": "^1.15.1",
-		"onnxruntime-web": "^1.16.0-dev.20230606-f013965831"
+		"onnxruntime-node": "^1.15.1"
 	}
 }

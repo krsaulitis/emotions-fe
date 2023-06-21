@@ -2,8 +2,6 @@ import type {RequestHandler} from "@sveltejs/kit"
 // @ts-ignore
 import {BertWordPieceTokenizer} from '@nlpjs/bert-tokenizer'
 import onnx from 'onnxruntime-node'
-import vocabLV from '$lib/vocab_lv.txt'
-import modelLV from '$lib/model_lv.onnx'
 import {buildInt64, labelMap, padOrClip, sigmoid} from '$lib/helpers'
 import * as fs from "fs";
 
@@ -13,11 +11,9 @@ export const GET: RequestHandler = async ({request, url}) => {
 
     // const modResponse = await fetch("https://huggingface.co/krsaulitis/emotion-bert-lv/resolve/main/model_lv.onnx")
     // const session = await onnx.InferenceSession.create(await modResponse.arrayBuffer())
-    console.log(vocabLV)
-    console.log(modelLV)
-    console.log(fs.readdirSync('./'));
-    const vocab = fs.readFileSync(`${vocabLV}`, 'utf8')
-    const session = await onnx.InferenceSession.create(`./src/lib/model_${model}.onnx`)
+
+    const vocab = fs.readFileSync(`../src/lib/vocab_${model}.txt`, 'utf8')
+    const session = await onnx.InferenceSession.create(`../src/lib/model_${model}.onnx`)
     const tokenizer = new BertWordPieceTokenizer({lowercase: false, vocabContent: vocab})
 
     let encoding = tokenizer.encodeQuestion(text)

@@ -15,6 +15,12 @@ export const GET: RequestHandler = async ({request, url}) => {
     const model = url.searchParams.get('m') || 'en';
 
     console.log(fs.readdirSync('./'))
+    console.log(fs.readdirSync('./.svelte-kit'))
+    console.log(fs.readdirSync('./.svelte-kit/output'))
+    console.log(fs.readdirSync('./.svelte-kit/output/server'))
+    console.log(fs.readdirSync('./.svelte-kit/output/server/_app'))
+    console.log(fs.readdirSync('./.svelte-kit/output/server/_app/immutable'))
+    console.log(fs.readdirSync('./.svelte-kit/output/server/_app/immutable/assets'))
 
     const file = path.join(process.cwd(), vocabLV);
     const altFile = path.join(process.cwd(), '.svelte-kit/output/server', vocabLV)

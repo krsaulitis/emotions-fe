@@ -2,6 +2,7 @@ import type {RequestHandler} from "@sveltejs/kit"
 // @ts-ignore
 import {BertWordPieceTokenizer} from '@nlpjs/bert-tokenizer'
 import * as onnx from 'onnxruntime-node'
+// import * as onnx from 'onnxruntime-common'
 import {buildInt64, labelMap, padOrClip, sigmoid} from '$lib/helpers'
 import * as fs from "fs";
 
@@ -9,15 +10,13 @@ export const GET: RequestHandler = async ({request, url}) => {
     const text = url.searchParams.get('q') || '';
     const model = url.searchParams.get('m') || 'en';
 
-    const files = fs.readdirSync('./')
+    const files = fs.readdirSync('./', {recursive: true})
     console.log(files);
     return new Response(JSON.stringify({files: files}));
     console.log(fs.readdirSync('./src/lib'));
 
-    fs.readdir('./', (err, files): void => {
-        console.log(files)
-    });
     const vocab = fs.readFileSync(`src/lib/vocab_${model}.txt`, 'utf8')
+    console.log(onnx.InferenceSession)
     const session = await onnx.InferenceSession.create(`./src/lib/model_${model}.onnx`)
     // const tokenizer = new BertTokenizer(`./src/lib/vocab_${model}.json`, false, 64)
     const tokenizer = new BertWordPieceTokenizer({lowercase: false, vocabContent: vocab})

@@ -14,20 +14,9 @@ export const GET: RequestHandler = async ({request, url}) => {
     const text = url.searchParams.get('q') || '';
     const model = url.searchParams.get('m') || 'en';
 
-    console.log(fs.readdirSync('./'))
-    console.log(fs.readdirSync('./.svelte-kit'))
-    console.log(fs.readdirSync('./.svelte-kit/output'))
-    console.log(fs.readdirSync('./.svelte-kit/output/server'))
-    console.log(fs.readdirSync('./.svelte-kit/output/server/_app'))
-    console.log(fs.readdirSync('./.svelte-kit/output/server/_app/immutable'))
-    console.log(fs.readdirSync('./.svelte-kit/output/server/_app/immutable/assets'))
-
-    const file = path.join(process.cwd(), vocabLV);
-    const altFile = path.join(process.cwd(), '.svelte-kit/output/server', vocabLV)
-    const alt2File = path.join('./.svelte-kit/output/server', vocabLV)
-    console.log(file, altFile, alt2File)
-    console.log(fs.existsSync(file), fs.existsSync(altFile), fs.existsSync(alt2File))
-    const vocab = fs.readFileSync(altFile, 'utf8')
+    const response = await fetch("https://huggingface.co/krsaulitis/emotion-bert-lv/resolve/main/vocab_lv.txt")
+    const vocab = await response.text()
+    console.log(vocab)
     console.log(onnx.InferenceSession)
     const session = await onnx.InferenceSession.create("https://huggingface.co/krsaulitis/emotion-bert-lv/resolve/main/model_lv.onnx")
     // const tokenizer = new BertTokenizer(`./src/lib/vocab_${model}.json`, false, 64)

@@ -13,10 +13,7 @@ export const GET: RequestHandler = async ({request, url}) => {
     const text = url.searchParams.get('q') || '';
     const model = url.searchParams.get('m') || 'en';
 
-    const files = fs.readdirSync('./.svelte-kit', {recursive: true})
-    console.log(files);
-    const vocab = fs.readFileSync(vocabLV, 'utf8')
-    console.log(vocab)
+    const vocab = fs.readFileSync(`./.svelte-kit/output/server${vocabLV}`, 'utf8')
     console.log(onnx.InferenceSession)
     const session = await onnx.InferenceSession.create("https://huggingface.co/krsaulitis/emotion-bert-lv/resolve/main/model_lv.onnx")
     // const tokenizer = new BertTokenizer(`./src/lib/vocab_${model}.json`, false, 64)

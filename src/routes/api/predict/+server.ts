@@ -14,10 +14,13 @@ export const GET: RequestHandler = async ({request, url}) => {
     const text = url.searchParams.get('q') || '';
     const model = url.searchParams.get('m') || 'en';
 
+    console.log(fs.readdirSync('./'))
+
     const file = path.join(process.cwd(), vocabLV);
     const altFile = path.join(process.cwd(), '.svelte-kit/output/server', vocabLV)
-    console.log(file, altFile)
-    console.log(fs.existsSync(file), fs.existsSync(altFile))
+    const alt2File = path.join('./.svelte-kit/output/server', vocabLV)
+    console.log(file, altFile, alt2File)
+    console.log(fs.existsSync(file), fs.existsSync(altFile), fs.existsSync(alt2File))
     const vocab = fs.readFileSync(altFile, 'utf8')
     console.log(onnx.InferenceSession)
     const session = await onnx.InferenceSession.create("https://huggingface.co/krsaulitis/emotion-bert-lv/resolve/main/model_lv.onnx")

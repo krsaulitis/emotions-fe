@@ -57,19 +57,20 @@
 
 <section class="flex flex-col items-center justify-center h-screen">
     <div>
-        <h1 class="text-5xl font-bold text-neutral-300">EmotionBERT</h1>
-        <input class="border-2 outline-0 border-neutral-600 focus:border-neutral-300 text-neutral-300 bg-neutral-900 rounded-lg px-3 py-1 w-full mt-5"
-               bind:value={text}
-               on:input={handleInput}
-               on:focusout={handleFocusOut}
-               type="text">
+        <h1 class="text-6xl font-bold text-neutral-300">EmotionBERT</h1>
+        <textarea rows="4"
+                  class="border-2 outline-0 resize-none border-neutral-600 focus:border-neutral-300 text-neutral-300 bg-neutral-900 rounded-lg px-3 py-1 w-full mt-5 text-2xl min-h-[100px] max-h-48"
+                  bind:value={text}
+                  on:input={handleInput}
+                  on:focusout={handleFocusOut}></textarea>
     </div>
     <div class="mt-5">
-        {#if predictions}
+        {#if predictions && text}
             {#if isDetailed}
                 <div class="absolute -translate-x-1/2">
                     {#each predictions as prediction}
-                        <p class="text-xl text-neutral-300">{prediction.icon} {prediction.label} - {prediction.confidence.toFixed(3)}</p>
+                        <p class="text-xl text-neutral-300">{prediction.icon} {prediction.label}
+                            - {prediction.confidence.toFixed(3)}</p>
                     {/each}
                 </div>
             {:else}

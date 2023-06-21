@@ -9,9 +9,8 @@ export const GET: RequestHandler = async ({request, url}) => {
     const text = url.searchParams.get('q') || '';
     const model = url.searchParams.get('m') || 'en';
 
-    fs.readdir('./src/lib', (err, files): void => {
-        console.log(files)
-    });
+    console.log(fs.readdirSync('./'));
+    console.log(fs.readdirSync('./src/lib'));
 
     fs.readdir('./', (err, files): void => {
         console.log(files)

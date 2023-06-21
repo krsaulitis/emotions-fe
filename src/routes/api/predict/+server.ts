@@ -11,7 +11,8 @@ export const GET: RequestHandler = async ({request, url}) => {
 
     // const modResponse = await fetch("https://huggingface.co/krsaulitis/emotion-bert-lv/resolve/main/model_lv.onnx")
     // const session = await onnx.InferenceSession.create(await modResponse.arrayBuffer())
-    const vocab = fs.readFileSync(`src/lib/vocab_${model}.txt`, 'utf8')
+    console.log(fs.readlinkSync('./'));
+    const vocab = fs.readFileSync(`./src/lib/vocab_${model}.txt`, 'utf8')
     const session = await onnx.InferenceSession.create(`./src/lib/model_${model}.onnx`)
     const tokenizer = new BertWordPieceTokenizer({lowercase: false, vocabContent: vocab})
 
